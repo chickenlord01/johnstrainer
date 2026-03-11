@@ -6,6 +6,10 @@ description 'Lua replacement for vMenu'
 version '0.0.1'
 lua54 'yes'
 
+dependencies {
+    'ox_lib'
+}
+
 shared_script '@ox_lib/init.lua'
 
 shared_scripts {
@@ -20,4 +24,8 @@ client_scripts {
 server_scripts {
     'utils/**/server.lua',
     'init/server.lua'
+}
+
+files {
+    'locales/*.json'
 }
