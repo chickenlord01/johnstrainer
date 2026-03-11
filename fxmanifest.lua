@@ -18,12 +18,14 @@ shared_scripts {
 
 client_scripts {
     'utils/**/client.lua',
-    'init/client.lua'
+    'init/client.lua',
+    'modules/**/client.lua'
 }
 
 server_scripts {
     'utils/**/server.lua',
-    'init/server.lua'
+    'init/server.lua',
+    'modules/**/server.lua'
 }
 
 files {
