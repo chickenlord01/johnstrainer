@@ -1,138 +1,135 @@
 --Start of connection
+local PlayerClass = lib.class("PlayerClass")
+Trainer.Player = {
+    PlayersTable = {}
+}
+
 AddEventHandler('playerConnecting', function(playerName, setKickReason, deferrals)
     local _source = source
-    local steam,license,discord,license2,fivem,ip,xbl
+
     --Start of default player deferrals
     deferrals.defer()
     Wait(0)
     deferrals.update("Hello "..playerName..": We are checking your player identifiers, please wait!")
 
     Wait(100)
-
-    for k,v in pairs(GetPlayerIdentifiers(_source)) do
-        if string.sub(v, 1, string.len("steam:")) == "steam:" then
-          steam = v
-        elseif string.sub(v, 1, string.len("license:")) == "license:" then
-          license = v
-        elseif string.sub(v, 1, string.len("license2:")) == "license2:" then
-          license = v
-        elseif string.sub(v, 1, string.len("discord:")) == "discord:" then
-          discord = v
-        elseif string.sub(v, 1, string.len("fivem:")) == "fivem:" then
-          fivem = v
-        elseif string.sub(v, 1, string.len("ip:")) == "ip:" then
-          ip = v
-        elseif string.sub(v, 1, string.len("xbl:")) == "xbl:" then
-          xbl = v
-        end
+    local idents = {}
+    for _,v in pairs(GetPlayerIdentifiers(_source)) do
+        local colon = string.find(v,":")-1
+        idents[string.sub(v,1,colon)] = string.gsub(v,string.sub(v,1,colon+1),"")
     end
 
-    Wait(2000)
+    if not idents.license then print("Player dropped while connecting: "..playerName,"No license identifier.") deferrals.done("No game license found. Please ensure you have a legitimate copy of GTA V.") end
+    --Wait(2000)
 
     deferrals.update("Hello "..playerName..": All of your identifiers are good to go, please wait for the server to accept your connection!")
 
+    PlayerClass:new({
+        id = idents.license,
+        identifiers = idents,
+        name = playerName
+    })
     Wait(500)
 
     print("Player Connecting: "..playerName)
-    end
+    
     --End of default player deferrals
 
     --Totally necessary wait
-    Wait(5000)
+    --Wait(5000)
 
     --Finishes defering the client and allows connection
     --deferrals.done("no")
     deferrals.done()
 end)
 
--- creates a player class to store player data and functions
-Character = lib.class("Character")
-characters = {}
-local PlayerObj = lib.class("PlayerObj")
-players = {}
 
-local playerDB = DataBase:new({
-    id = "players",
-    label = "PlayerObj data",
-    onUpdate = function(data,key)
-        if players[key] then
-            players[key]:updateData(data,true)
-        end
-    end
-})
-local characterDB = DataBase:new({
-    id = "characters",
-    label = "Character data",
-    onUpdate = function(data,key)
-        if characters[key] then
-            characters[key]:updateData(data,true)
-        end
-    end
-})
 
-function Character:constructor(data)
-    self.id = data.id
-    self.accounts = data.accounts or {}
-    self.player = data.player
-    self.permissions = data.permissions or {}
-    self.metadata = data.metadata or {
-        trust = data.trust,
-        displayname = data.displayname
-    }
-    characters[self.id] = self
-    self:setup()
+function PlayerClass:constructor(data)
+    for k,v in pairs(data) do
+        self[k] = v
+    end
+
+    Trainer.Player.PlayersTable[self] = self.id
+    return self:setup()
 end
--- I have no idea what I am doing with this player class but I will figure it out eventually
-
-
-
-
-
-
-
---[[AddEventHandler("playerConnecting", function(playerName, setKickReason, deferrals)
-    local player = source
-    local steam,license,discord
-    local playerinfo = {}
-    
-    deferrals.defer()
-    deferrals.update("Checking player data...")
-    for k,v in pairs(GetPlayerIdentifiers(player)) do
-        if string.sub(v, 1, string.len("steam:")) == "steam:" then
-          steam = v
-        elseif string.sub(v, 1, string.len("license:")) == "license:" then
-          license = v
-        elseif string.sub(v, 1, string.len("discord:")) == "discord:" then
-          discord = v
+function PlayerClass:setup()end
+function PlayerClass:getLicense()
+    return self.id
+end
+function PlayerClass:updateData(data,key)
+    if key == 'delete' then return self:remove() end
+    if key then
+        self[key] = data
+    else
+        for k,v in pairs(data) do
+            if v ~= 'delete' then
+                self[k] = v
+            else
+                self[k] = nil
+            end
         end
     end
-    Wait(1000)
-    playerinfo.steam = steam
-    playerinfo.license = license
-    playerinfo.discord = discord
-
-    if not players[license] then
-        PlayerObj:new({
-            id = license,
-            source = player,
-            metadata = {
-                displayname = playerName,
-                identifiers = playerinfo
-            }
-        })
-    elseif players[license] then
-        players[license]:updateMetadata("identifiers",playerinfo,nil,true)
-        players[license]:updateSource(player,true)
+    return self:update()
+end
+function PlayerClass:getData(admin)
+    local tempData = {}
+    if not admin then
+        for k,v in pairs(self) do
+            if type(v) ~= "function" and k ~= "private" and k ~= "identifiers" then
+                tempData[k] = v
+            end
+        end
+    else
+        for k,v in pairs(self) do
+            if type(v) ~= "function" and k ~= "private" then
+                tempData[k] = v
+            end
+        end
     end
-    Wait(500)
-    TriggerEvent('johns:playerLoaded')
-    deferrals.done()
+    return tempData
+end
+function PlayerClass:update()
+    --[[add database saving here for player data]]
+    return true
+end
+function PlayerClass:remove()
+    Trainer.Player.PlayersTable[self.id] = nil
+    return true
+end
+
+Trainer.Player.GetPlayerClassFromSource = function(source)
+    for _,v in pairs(Trainer.Player.PlayersTable) do
+        if v.source == source then
+            return v
+        end
+    end
+    return false
+end
+
+Trainer.Player.GetPlayerLicenseFromSource = function(source)
+    for _,v in pairs(Trainer.Player.PlayersTable) do
+        if v.source == source then
+            return v:getLicense()
+        end
+    end
+    return false
+end
+
+lib.callback.register('johnstrainer:player:connected', function(source)
+    local player = Trainer.Player.GetPlayerClassFromSource(source)
+    if not player then
+        local lic = GetPlayerIdentifierByType(source, 'license')
+        player = Trainer.Player.PlayersTable[string.gsub(lic,string.sub(lic,1,string.find(lic,":")),"")]
+    end
+    return player:updateData(source,"source")
 end)
 
 AddEventHandler("playerDropped", function(reason)
     local player = source
-    local lic = framework.GetPlayerLicense(player)
-
-    local shit = players[lic]
-    shit:updateSource()
-end)]]
+    local playerClass = Trainer.Player.GetPlayerClassFromSource(player)
+    if playerClass then
+        playerClass:updateData(nil,'source')
+    end
+    print("Player dropped: "..player,reason)
+end)
