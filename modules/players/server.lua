@@ -117,6 +117,22 @@ Trainer.Player.GetPlayerLicenseFromSource = function(source)
     return false
 end
 
+Trainer.Player.GetOnlinePlayers = function(source)
+    if not IsPlayerAceAllowed(source,"johnstrainer_online_players") then Trainer.Notification.SendNotification(source,{type = 'error',description = "No permission to this menu."}) return {} end
+    local temp = {}
+    for _,v in pairs(Trainer.Player.PlayersTable) do
+        if v.source then
+            table.insert(temp,{
+                id = v.source,
+                name = v.name
+            })
+        end
+    end
+    table.sort(temp,function (a,b) return a.id < b.id end)
+    return temp
+end
+lib.callback.register('johnstrainer:player:getOnlinePlayers',Trainer.Player.GetOnlinePlayers)
+
 lib.callback.register('johnstrainer:player:connected', function(source)
     local player = Trainer.Player.GetPlayerClassFromSource(source)
     if not player then
