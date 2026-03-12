@@ -1,11 +1,14 @@
 local Permission = lib.class("Permission")
-local Permissions = {}
+Trainer.Permissions = {
+    PermissionsTable = {}
+}
 
 function Permission:constructor(data)
+    if Trainer.Permissions.PermissionsTable[data.id] then return end
     for k,v in pairs(data) do
         self[k] = v
     end
-    Permissions[self.id] = self
+    Trainer.Permissions.PermissionsTable[self.id] = self
     return self:setup()
 end
 function Permission:setup()end
