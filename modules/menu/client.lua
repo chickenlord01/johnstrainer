@@ -1,4 +1,8 @@
-local menuPos = {}
+Trainer.Menu = {
+    menuPos = {},
+    menuFunc = {}
+}
+Trainer.Menu.menuPos = {}
 
 lib.registerMenu({
     id = 'johnstrainer_main',
@@ -8,45 +12,31 @@ lib.registerMenu({
         --print("Scroll: ", selected, scrollIndex, args)
     end,
     onSelected = function(selected, secondary, args)
-        --[[if not secondary then
-            print("Normal button")
-        else
-            if args.isCheck then
-                print("Check button")
-            end
- 
-            if args.isScroll then
-                print("Scroll button")
-            end
-        end
-        print(selected, secondary, json.encode(args, {indent=true}))]]
+        Trainer.Menu.menuPos["johnstrainer_main"] = selected
     end,
     onCheck = function(selected, checked, args)
         --print("Check: ", selected, checked, args)
     end,
     onClose = function(keyPressed)
-        --[[print('Menu closed')
-        if keyPressed then
-            print(('Pressed %s to close the menu'):format(keyPressed))
-        end]]
+        Trainer.Menu.onClose(true)
     end,
     options = {
-        {label = 'nothing here :(', close = false},
+        {label = 'nothing here :(', args["whatareyoudoing"],close = false},
     }
 }, function(selected, scrollIndex, args)
-    if args[1] == "johnstrainer_online_players" then
-    elseif args[1] == "johnstrainer_player_options" then
-    elseif args[1] == "johnstrainer_vehicle_options" then
-    elseif args[1] == "johnstrainer_world_options" then
-    elseif args[1] == "johnstrainer_recording_options" then
-    elseif args[1] == "johnstrainer_misc_options" then
+    if not args[1] == "whatareyoudoing" then
+        Trainer.Menu.openMenu(args[1])
     end
 end)
 
 RegisterCommand('opentrainer', function()
-    Trainer.Menu.GenerateMainOptions()
-    lib.showMenu('johnstrainer_main')
+    Trainer.Menu.openMenu('johnstrainer_main')
 end,false)
+
+Trainer.Menu.menuFunc["johnstrainer_main"] = function()
+    Trainer.Menu.GenerateMainOptions()
+    return true
+end
 
 Trainer.Menu.GenerateMainOptions = function()
     --perms wip
@@ -78,4 +68,19 @@ Trainer.Menu.GenerateMainOptions = function()
     })
 
     lib.setMenuOptions('johnstrainer_main', options)
+end
+
+Trainer.Menu.openMenu = function(menuId)
+    if not Trainer.Menu.menuPos[menuId] then Trainer.Menu.menuPos[menuId] = 0 end
+    if Trainer.Menu.menuFunc[menuId] then Trainer.Menu.menuFunc[menuId]() end
+    lib.showMenu(menuId,Trainer.Menu.menuPos[menuId])
+end
+
+Trainer.Menu.onClose = function(closeAll,key)
+    if closeAll or not Trainer.Menu.previousMenu or not key or key == "Escape" then
+        lib.hideMenu(false)
+        Trainer.Menu.previousMenu = nil
+        return true
+    end
+    Trainer.Menu.openMenu(Trainer.Menu.previousMenu)
 end
