@@ -4,5 +4,5 @@ if GetResourceState("johnsframework") ~= "missing" then Trainer.framework = "joh
 
 local convars = require("utils.configuration.convars")
 for k,v in pairs(convars) do
-    ExecuteCommand("setr "..k.. " "..v)
+    SetConvar(k,v)
 end
