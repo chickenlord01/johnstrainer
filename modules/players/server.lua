@@ -46,6 +46,7 @@ end)
 
 
 function PlayerClass:constructor(data)
+    if Trainer.Player.PlayersTable[data.id] then return end
     for k,v in pairs(data) do
         self[k] = v
     end
