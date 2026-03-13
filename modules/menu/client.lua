@@ -25,6 +25,7 @@ lib.registerMenu({
     }
 }, function(selected, scrollIndex, args)
     if args[1] ~= "whatareyoudoing" then
+        Trainer.Menu.previousMenu = 'johnstrainer_main'
         Trainer.Menu.openMenu(args[1])
     end
 end)
