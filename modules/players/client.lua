@@ -22,15 +22,25 @@ lib.registerMenu({
         Trainer.Menu.onClose(false,keyPressed)
     end,
     options = {
-        {label = 'nothing here :(', close = false},
+        {label = 'nothing here :(', args = {"wat happen"}, close = false},
     }
 }, function(selected, scrollIndex, args)
+    if args[1] ~= "wat happen" then
+        Trainer.Menu.openMenu()
+    end
 end)
 
 Trainer.Menu.GenerateOnlinePlayers = function()
     local players = lib.callback.await("johnstrainer:player:getOnlinePlayers",false)
+    if #players == 0 then return end
+    local options = {}
     for _,v in pairs(players) do
         local menuId = "johnstrainer_online_player_"..v.id
+        table.insert(options,{
+            label = v.name.." | ID: "..v.source,
+            args = {menuId}
+        })
+
         lib.registerMenu({
             id = menuId,
             title = v.name,
@@ -53,4 +63,9 @@ Trainer.Menu.GenerateOnlinePlayers = function()
         }, function(selected, scrollIndex, args)
         end)
     end
+    lib.setMenuOptions('johnstrainer_online_players', options)
+end
+
+Trainer.Menu.menuFunc["johnstrainer_online_players"] = function()
+    return Trainer.Menu.GenerateOnlinePlayers()
 end
