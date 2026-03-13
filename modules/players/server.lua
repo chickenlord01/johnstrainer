@@ -123,7 +123,7 @@ Trainer.Player.GetPlayerLicenseFromSource = function(source)
 end
 
 Trainer.Player.GetOnlinePlayers = function(source)
-    if not IsPlayerAceAllowed(source,"johnstrainer_online_players") then Trainer.Notification.SendNotification(source,{type = 'error',description = "No permission to this menu."}) return {} end
+    if not IsPlayerAceAllowed(source,"johnstrainer.Menu.OnlinePlayers") then Trainer.Notification.SendNotification(source,{type = 'error',description = "No permission to this menu."}) return {} end
     local temp = {}
     for _,v in pairs(Trainer.Player.PlayersTable) do
         if v.source then
