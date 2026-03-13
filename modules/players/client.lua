@@ -26,7 +26,8 @@ lib.registerMenu({
     }
 }, function(selected, scrollIndex, args)
     if args[1] ~= "wat happen" then
-        Trainer.Menu.openMenu()
+        Trainer.Menu.previousMenu = 'johnstrainer_online_players'
+        Trainer.Menu.openMenu(args[1])
     end
 end)
 
@@ -37,7 +38,7 @@ Trainer.Menu.GenerateOnlinePlayers = function()
     for _,v in pairs(players) do
         local menuId = "johnstrainer_online_player_"..v.id
         table.insert(options,{
-            label = v.name.." | ID: "..v.source,
+            label = v.name.." | ID: "..v.id,
             args = {menuId}
         })
 
@@ -61,6 +62,7 @@ Trainer.Menu.GenerateOnlinePlayers = function()
                 {label = 'nothing here :(', close = false},
             }
         }, function(selected, scrollIndex, args)
+            Trainer.Menu.previousMenu = menuId
         end)
     end
     lib.setMenuOptions('johnstrainer_online_players', options)
