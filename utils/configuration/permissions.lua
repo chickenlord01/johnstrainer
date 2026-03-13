@@ -4,13 +4,13 @@
 --status: allow or deny
 return {
     --Commands
-    ["command.opentrainer"] =              {groups = {"builtin.everyone"}, status = "allow"},
+    ["command.opentrainer"] =              {groups = {"builtin.everyone"}, status = true},
 
     --Main menu
-    ["johnstrainer.Menu.OnlinePlayers"] =  {groups = {"builtin.everyone"}, status = "allow"},
-    ["johnstrainer.Menu.PlayerRelated"] =  {groups = {"builtin.everyone"}, status = "allow"},
-    ["johnstrainer.Menu.VehicleRelated"] = {groups = {"builtin.everyone"}, status = "allow"},
-    ["johnstrainer.Menu.WorldRelated"] =   {groups = {"builtin.everyone"}, status = "allow"},
-    ["johnstrainer.Menu.Recording"] =      {groups = {"builtin.everyone"}, status = "allow"},
-    ["johnstrainer.Menu.Misc"] =           {groups = {"builtin.everyone"}, status = "allow"},
+    ["johnstrainer.Menu.OnlinePlayers"] =  {groups = {"builtin.everyone"}, status = true},
+    ["johnstrainer.Menu.PlayerRelated"] =  {groups = {"builtin.everyone"}, status = true},
+    ["johnstrainer.Menu.VehicleRelated"] = {groups = {"builtin.everyone"}, status = true},
+    ["johnstrainer.Menu.WorldRelated"] =   {groups = {"builtin.everyone"}, status = true},
+    ["johnstrainer.Menu.Recording"] =      {groups = {"builtin.everyone"}, status = true},
+    ["johnstrainer.Menu.Misc"] =           {groups = {"builtin.everyone"}, status = true},
 }
