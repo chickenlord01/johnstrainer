@@ -84,3 +84,8 @@ Trainer.Menu.onClose = function(closeAll,key)
     end
     Trainer.Menu.openMenu(Trainer.Menu.previousMenu)
 end
+
+RegisterNetEvent('johnstrainer:menu:openMainMenu', function()
+    if GetInvokingResource() ~= GetCurrentResourceName() then return end
+    Trainer.Menu.openMenu("johnstrainer_main")
+end)
