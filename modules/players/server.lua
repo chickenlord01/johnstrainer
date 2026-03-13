@@ -13,11 +13,7 @@ AddEventHandler('playerConnecting', function(playerName, setKickReason, deferral
     deferrals.update("Hello "..playerName..": We are checking your player identifiers, please wait!")
 
     Wait(100)
-    local idents = {}
-    for _,v in pairs(GetPlayerIdentifiers(_source)) do
-        local colon = string.find(v,":")-1
-        idents[string.sub(v,1,colon)] = string.gsub(v,string.sub(v,1,colon+1),"")
-    end
+    local idents = Trainer.Player.GenerateIdentifierTable(_source)
 
     if not idents.license then print("Player dropped while connecting: "..playerName,"No license identifier.") deferrals.done("No game license found. Please ensure you have a legitimate copy of GTA V.") end
     --Wait(2000)
@@ -51,7 +47,7 @@ function PlayerClass:constructor(data)
         self[k] = v
     end
 
-    Trainer.Player.PlayersTable[self] = self.id
+    Trainer.Player.PlayersTable[self.id] = self
     return self:setup()
 end
 function PlayerClass:setup()end
@@ -99,6 +95,15 @@ function PlayerClass:remove()
     return true
 end
 
+Trainer.Player.GenerateIdentifierTable = function(source)
+    local idents = {}
+    for _,v in pairs(GetPlayerIdentifiers(source)) do
+        local colon = string.find(v,":")-1
+        idents[string.sub(v,1,colon)] = string.gsub(v,string.sub(v,1,colon+1),"")
+    end
+    return idents
+end
+
 Trainer.Player.GetPlayerClassFromSource = function(source)
     for _,v in pairs(Trainer.Player.PlayersTable) do
         if v.source == source then
@@ -137,7 +142,7 @@ lib.callback.register('johnstrainer:player:connected', function(source)
     local player = Trainer.Player.GetPlayerClassFromSource(source)
     if not player then
         local lic = GetPlayerIdentifierByType(source, 'license')
-        player = Trainer.Player.PlayersTable[string.gsub(lic,string.sub(lic,1,string.find(lic,":")),"")]
+        player = Trainer.Player.PlayersTable[string.sub(lic,9)]
     end
     return player:updateData(source,"source")
 end)
@@ -149,4 +154,15 @@ AddEventHandler("playerDropped", function(reason)
         playerClass:updateData(nil,'source')
     end
     print("Player dropped: "..player,reason)
+end)
+
+CreateThread(function()
+    for _,v in pairs(GetPlayers()) do
+        local idents = Trainer.Player.GenerateIdentifierTable(v)
+        PlayerClass:new({
+            id = idents.license,
+            identifiers = idents,
+            name = GetPlayerName(v)
+        })
+    end
 end)
