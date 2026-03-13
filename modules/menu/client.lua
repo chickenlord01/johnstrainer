@@ -21,10 +21,10 @@ lib.registerMenu({
         Trainer.Menu.onClose(true)
     end,
     options = {
-        {label = 'nothing here :(', args["whatareyoudoing"],close = false},
+        {label = 'nothing here :(', args= {"whatareyoudoing"},close = false},
     }
 }, function(selected, scrollIndex, args)
-    if not args[1] == "whatareyoudoing" then
+    if args[1] ~= "whatareyoudoing" then
         Trainer.Menu.openMenu(args[1])
     end
 end)
