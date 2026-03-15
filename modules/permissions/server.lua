@@ -47,7 +47,7 @@ AddEventHandler('onResourceStop', function(resource)
     end
 end)
 
-lib.callback.register('johnstrainer:permissions:getMenuOptionPermissions', function(source,menu)
+lib.callback.register('johnstrainer:permissions:getMenuOptionPermissions', function(source,menu,data)
     local tempTable = {}
     if menu == "main" then
         if IsPlayerAceAllowed(source,"johnstrainer.Menu.OnlinePlayers") then
@@ -86,6 +86,68 @@ lib.callback.register('johnstrainer:permissions:getMenuOptionPermissions', funct
                 args = {"johnstrainer_misc_options"}
             })
         end
+    elseif menu == "online_player" then
+        if IsPlayerAceAllowed(source,"johnstrainer.OnlinePlayers.Teleport") then
+            table.insert(tempTable,{
+                label = "Teleport",
+                args = {}
+            })
+        end
+        if IsPlayerAceAllowed(source,"johnstrainer.OnlinePlayers.Summon") then
+            table.insert(tempTable,{
+                label = "Summon",
+                args = {}
+            })
+        end
+        if IsPlayerAceAllowed(source,"johnstrainer.OnlinePlayers.Waypoint") then
+            table.insert(tempTable,{
+                label = "Waypoint",
+                args = {}
+            })
+        end
+        if IsPlayerAceAllowed(source,"johnstrainer.OnlinePlayers.Spectate") then
+            table.insert(tempTable,{
+                label = "Spectate",
+                args = {}
+            })
+        end
+        if IsPlayerAceAllowed(source,"johnstrainer.OnlinePlayers.SendMessage") then
+            table.insert(tempTable,{
+                label = "SendMessage",
+                args = {}
+            })
+        end
+        if IsPlayerAceAllowed(source,"johnstrainer.OnlinePlayers.Kill") then
+            table.insert(tempTable,{
+                label = "Kill",
+                args = {}
+            })
+        end
+        if IsPlayerAceAllowed(source,"johnstrainer.OnlinePlayers.Kick") then
+            table.insert(tempTable,{
+                label = "Kick",
+                args = {}
+            })
+        end
+        if IsPlayerAceAllowed(source,"johnstrainer.OnlinePlayers.Ban") then
+            table.insert(tempTable,{
+                label = "Ban",
+                args = {}
+            })
+        end
+        if IsPlayerAceAllowed(source,"johnstrainer.OnlinePlayers.Identifiers") then
+            table.insert(tempTable,{
+                label = "Identifiers",
+                args = {}
+            })
+        end
+        if IsPlayerAceAllowed(source,"johnstrainer.OnlinePlayers.Unban") then
+            table.insert(tempTable,{
+                label = "Unban",
+                args = {}
+            })
+        end
+
     end
     return tempTable
 end)
