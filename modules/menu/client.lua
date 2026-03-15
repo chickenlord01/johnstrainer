@@ -40,33 +40,8 @@ Trainer.Menu.menuFunc["johnstrainer_main"] = function()
 end
 
 Trainer.Menu.GenerateMainOptions = function()
-    --perms wip
-    --local permissions = lib.callback.await("johnstrainer:permissions:getPermissions",false)
-    local options = {}
-    table.insert(options,{
-        label = "Online players",
-        args = {"johnstrainer_online_players"}
-    })
-    table.insert(options,{
-        label = "Player related options",
-        args = {"johnstrainer_player_options"}
-    })
-    table.insert(options,{
-        label = "Vehicle related options",
-        args = {"johnstrainer_vehicle_options"}
-    })
-    table.insert(options,{
-        label = "World related options",
-        args = {"johnstrainer_world_options"}
-    })
-    table.insert(options,{
-        label = "Recording options",
-        args = {"johnstrainer_recording_options"}
-    })
-    table.insert(options,{
-        label = "Misc options",
-        args = {"johnstrainer_misc_options"}
-    })
+    local options = lib.callback.await("johnstrainer:permissions:getMenuOptionPermissions",false,"main")
+    if #options == 0 then return end
 
     lib.setMenuOptions('johnstrainer_main', options)
 end
