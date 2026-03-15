@@ -41,6 +41,9 @@ Trainer.Menu.GenerateOnlinePlayers = function()
             label = v.name.." | ID: "..v.id,
             args = {menuId}
         })
+        table.insert(Trainer.Menu.menuFunc[menuId],function()
+            return Trainer.Menu.GenerateOnlinePlayerOptions(menuId,v)
+        end)
 
         lib.registerMenu({
             id = menuId,
@@ -62,7 +65,7 @@ Trainer.Menu.GenerateOnlinePlayers = function()
                 {label = 'nothing here :(', close = false},
             }
         }, function(selected, scrollIndex, args)
-            Trainer.Menu.previousMenu = menuId
+            
         end)
     end
     lib.setMenuOptions('johnstrainer_online_players', options)
@@ -70,4 +73,11 @@ end
 
 Trainer.Menu.menuFunc["johnstrainer_online_players"] = function()
     return Trainer.Menu.GenerateOnlinePlayers()
+end
+
+Trainer.Menu.GenerateOnlinePlayerOptions = function(menuId,player)
+    local permissions = lib.callback.await("johnstrainer:permissions:getMenuOptionPermissions",false,"online_player",player)
+    if #permissions == 0 then return end
+
+    lib.setMenuOptions(menuId,permissions)
 end
