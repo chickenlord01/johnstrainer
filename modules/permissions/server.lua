@@ -141,12 +141,12 @@ lib.callback.register('johnstrainer:permissions:getMenuOptionPermissions', funct
                 args = {}
             })
         end
-        if IsPlayerAceAllowed(source,"johnstrainer.OnlinePlayers.Unban") then
+        --[[if IsPlayerAceAllowed(source,"johnstrainer.OnlinePlayers.Unban") then
             table.insert(tempTable,{
                 label = "Unban",
                 args = {}
             })
-        end
+        end]]
 
     end
     return tempTable

@@ -41,9 +41,9 @@ Trainer.Menu.GenerateOnlinePlayers = function()
             label = v.name.." | ID: "..v.id,
             args = {menuId}
         })
-        table.insert(Trainer.Menu.menuFunc[menuId],function()
+        Trainer.Menu.menuFunc[menuId] = function()
             return Trainer.Menu.GenerateOnlinePlayerOptions(menuId,v)
-        end)
+        end
 
         lib.registerMenu({
             id = menuId,
