@@ -54,4 +54,9 @@ return {
     ["johnstrainer.PlayerOptions.Freeze"] =                {groups = {"builtin.everyone"}, status = true},
     ["johnstrainer.PlayerOptions.Scenarios"] =             {groups = {"builtin.everyone"}, status = true},
 
+    --Player Appearance
+    ["johnstrainer.PlayerAppearance.Customize"] =          {groups = {"builtin.everyone"}, status = true},
+    ["johnstrainer.PlayerAppearance.SpawnPed"] =           {groups = {"builtin.everyone"}, status = true},
+    ["johnstrainer.PlayerAppearance.Saved"] =              {groups = {"builtin.everyone"}, status = true},
+
 }
