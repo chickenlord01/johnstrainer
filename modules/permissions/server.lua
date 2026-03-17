@@ -147,7 +147,171 @@ lib.callback.register('johnstrainer:permissions:getMenuOptionPermissions', funct
                 args = {}
             })
         end]]
-
+    elseif menu == "player_related" then
+        if IsPlayerAceAllowed(source,"johnstrainer.PlayerRelated.PlayerOptions") then
+            table.insert(tempTable,{
+                label = "Player Options",
+                args = {"johnstrainer_player_options"}
+            })
+        end
+        if IsPlayerAceAllowed(source,"johnstrainer.PlayerRelated.PlayerAppearance") then
+            table.insert(tempTable,{
+                label = "Player Appearance",
+                args = {"johnstrainer_player_appearance"}
+            })
+        end
+        if IsPlayerAceAllowed(source,"johnstrainer.PlayerRelated.PlayerCharacters") then
+            table.insert(tempTable,{
+                label = "Player Characters",
+                args = {"johnstrainer_player_characters"}
+            })
+        end
+    elseif menu == "player_options" then
+        if IsPlayerAceAllowed(source,"johnstrainer.PlayerOptions.God") then
+            table.insert(tempTable,{
+                label = "God mode",
+                args = {}
+            })
+        end
+        if IsPlayerAceAllowed(source,"johnstrainer.PlayerOptions.Invisible") then
+            table.insert(tempTable,{
+                label = "Invisible",
+                args = {}
+            })
+        end
+        if IsPlayerAceAllowed(source,"johnstrainer.PlayerOptions.UnlimitedStamina") then
+            table.insert(tempTable,{
+                label = "Unlimited stamina",
+                args = {}
+            })
+        end
+        if IsPlayerAceAllowed(source,"johnstrainer.PlayerOptions.FastRun") then
+            table.insert(tempTable,{
+                label = "Fast run",
+                args = {}
+            })
+        end
+        if IsPlayerAceAllowed(source,"johnstrainer.PlayerOptions.FastSwim") then
+            table.insert(tempTable,{
+                label = "Fast swim",
+                args = {}
+            })
+        end
+        if IsPlayerAceAllowed(source,"johnstrainer.PlayerOptions.Superjump") then
+            table.insert(tempTable,{
+                label = "Super jump",
+                args = {}
+            })
+        end
+        if IsPlayerAceAllowed(source,"johnstrainer.PlayerOptions.NoRagdoll") then
+            table.insert(tempTable,{
+                label = "No ragdoll",
+                args = {}
+            })
+        end
+        if IsPlayerAceAllowed(source,"johnstrainer.PlayerOptions.NeverWanted") then
+            table.insert(tempTable,{
+                label = "Never wanted",
+                args = {}
+            })
+        end
+        if IsPlayerAceAllowed(source,"johnstrainer.PlayerOptions.SetWanted") then
+            table.insert(tempTable,{
+                label = "Set wanted",
+                args = {}
+            })
+        end
+        if IsPlayerAceAllowed(source,"johnstrainer.PlayerOptions.ClearBlood") then
+            table.insert(tempTable,{
+                label = "Clear blood",
+                args = {}
+            })
+        end
+        if IsPlayerAceAllowed(source,"johnstrainer.PlayerOptions.SetBlood") then
+            table.insert(tempTable,{
+                label = "Set blood",
+                args = {}
+            })
+        end
+        if IsPlayerAceAllowed(source,"johnstrainer.PlayerOptions.Ignored") then
+            table.insert(tempTable,{
+                label = "Entity ignores player",
+                args = {}
+            })
+        end
+        if IsPlayerAceAllowed(source,"johnstrainer.PlayerOptions.StayInVehicle") then
+            table.insert(tempTable,{
+                label = "Stay in vehicle",
+                args = {}
+            })
+        end
+        if IsPlayerAceAllowed(source,"johnstrainer.PlayerOptions.MaxHealth") then
+            table.insert(tempTable,{
+                label = "Max health",
+                args = {}
+            })
+        end
+        if IsPlayerAceAllowed(source,"johnstrainer.PlayerOptions.MaxArmor") then
+            table.insert(tempTable,{
+                label = "Max armor",
+                args = {}
+            })
+        end
+        if IsPlayerAceAllowed(source,"johnstrainer.PlayerOptions.CleanPlayer") then
+            table.insert(tempTable,{
+                label = "Clean player",
+                args = {}
+            })
+        end
+        if IsPlayerAceAllowed(source,"johnstrainer.PlayerOptions.DryPlayer") then
+            table.insert(tempTable,{
+                label = "Dry player",
+                args = {}
+            })
+        end
+        if IsPlayerAceAllowed(source,"johnstrainer.PlayerOptions.WetPlayer") then
+            table.insert(tempTable,{
+                label = "Wet player",
+                args = {}
+            })
+        end
+        if IsPlayerAceAllowed(source,"johnstrainer.PlayerOptions.VehicleAutoPilotMenu") then
+            table.insert(tempTable,{
+                label = "Vehicle auto-pilot",
+                args = {}
+            })
+        end
+        if IsPlayerAceAllowed(source,"johnstrainer.PlayerOptions.Freeze") then
+            table.insert(tempTable,{
+                label = "Freeze player",
+                args = {}
+            })
+        end
+        if IsPlayerAceAllowed(source,"johnstrainer.PlayerOptions.Scenarios") then
+            table.insert(tempTable,{
+                label = "Scenarios",
+                args = {}
+            })
+        end
+    elseif menu == "player_appearance" then
+        if IsPlayerAceAllowed(source,"johnstrainer.PlayerAppearance.Customize") then
+            table.insert(tempTable,{
+                label = "Customize ped",
+                args = {}
+            })
+        end
+        if IsPlayerAceAllowed(source,"johnstrainer.PlayerAppearance.SpawnPed") then
+            table.insert(tempTable,{
+                label = "Customize ped",
+                args = {"johnstrainer_spawn_ped"}
+            })
+        end
+        if IsPlayerAceAllowed(source,"johnstrainer.PlayerAppearance.Saved") then
+            table.insert(tempTable,{
+                label = "Customize ped",
+                args = {"johnstrainer_saved_ped"}
+            })
+        end
     end
     return tempTable
 end)
