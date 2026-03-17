@@ -59,7 +59,7 @@ lib.callback.register('johnstrainer:permissions:getMenuOptionPermissions', funct
         if IsPlayerAceAllowed(source,"johnstrainer.Menu.PlayerRelated") then
             table.insert(tempTable,{
                 label = "Player related options",
-                args = {"johnstrainer_player_options"}
+                args = {"johnstrainer_player_related"}
             })
         end
         if IsPlayerAceAllowed(source,"johnstrainer.Menu.VehicleRelated") then
