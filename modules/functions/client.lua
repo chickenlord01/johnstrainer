@@ -112,3 +112,13 @@ Trainer.Functions.ped.generateDecorationsTable = generateDecorationsTable
 
 --Since tattoos don't change often, this generates the table on script start
 Trainer.Ped.tattoos = generateDecorationsTable()
+
+--Checks if ped is a freemode model, generally used for further customization options
+local function isPedFreemode(ped)
+    local modelHash = GetEntityModel(ped)
+    if modelHash == `mp_freemode_m` or `mp_freemode_f` then
+        return true
+    end
+    return false
+end
+Trainer.Functions.ped.isPedFreemode = isPedFreemode
