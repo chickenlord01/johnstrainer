@@ -12,7 +12,7 @@ lib.registerMenu({
         --print("Check: ", selected, checked, args)
     end,
     onClose = function(keyPressed)
-        Trainer.Menu.onClose(true)
+        Trainer.Menu.onClose(false,keyPressed)
     end,
     options = {
         {label = 'nothing here :(', args= {"whatareyoudoing"},close = false},
@@ -42,7 +42,7 @@ Trainer.Menu.GeneratePlayerRelatedOptions = function()
                 --print("Check: ", selected, checked, args)
             end,
             onClose = function(keyPressed)
-                Trainer.Menu.onClose(true)
+                Trainer.Menu.onClose(false,keyPressed)
             end,
             options = {
                 {label = 'nothing here :(', args= {"whatareyoudoing"},close = false},
