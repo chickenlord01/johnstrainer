@@ -109,3 +109,6 @@ local function generateDecorationsTable()
     return tempData
 end
 Trainer.Functions.ped.generateDecorationsTable = generateDecorationsTable
+
+--Since tattoos don't change often, this generates the table on script start
+Trainer.Ped.tattoos = generateDecorationsTable()
