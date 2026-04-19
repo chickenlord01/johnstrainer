@@ -9,6 +9,20 @@ constants = {}
 
 --Ped appearance based constants
 constants.pedComponents = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11}
+constants.pedComponentNames = {
+    "Head",
+    "Masks",
+    "Hair",
+    "Upper body",
+    "Lower body",
+    "Bags & Parachutes",
+    "Shoes",
+    "Scarfs & Chains",
+    "Shirts & Accessories",
+    "Body Armor",
+    "Badges & Logos",
+    "Shirt overlay & Jackets"
+}
 constants.pedProps = {0, 1, 2, 6, 7}
 constants.pedTattooZones = {
     ZONE_TORSO = 0,
