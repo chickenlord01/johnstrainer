@@ -47,6 +47,32 @@ local function generateCollectionsTable(ped)
 end
 Trainer.Functions.ped.generateCollectionsTable = generateCollectionsTable
 
+local function generateDrawableTables(ped)
+    if not ped then ped = cache.ped end
+    local loadOrder = Trainer.Ped.loadOrder[GetEntityModel(ped)]
+    local collectionTable = generateCollectionsTable(ped)
+    local componentTable = {}
+    local propTable = {}
+    if not loadOrder then
+        for _,collectionData in pairs(collectionTable) do
+            --component drawables
+            for index,_ in pairs(constants.pedComponents) do
+                for _,v in pairs(collectionData.components[index]) do
+                    table.insert(componentTable,index,v)
+                end
+            end
+            --prop drawables
+            for index,_ in pairs(constants.pedProps) do
+                for _,v in pairs(collectionData.props[index]) do
+                    table.insert(propTable,index,v)
+                end
+            end
+        end
+    end
+    return componentTable,propTable
+end
+Trainer.Functions.ped.generateDrawableTables = generateDrawableTables
+
 --Decoration native https://docs.fivem.net/natives/?_0xFF56381874F82086
 local function TattooBlobToTable(blob)
     local LockHash = string.unpack('<i4', blob, 1) & 0xFFFFFFFF -- uint (hash)
