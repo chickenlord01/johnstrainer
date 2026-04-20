@@ -95,6 +95,21 @@ local function generatePedDrawableTable(ped)
 end
 Trainer.Functions.ped.generatePedDrawableTable = generatePedDrawableTable
 
+local function generatePedPropTable(ped)
+    if not ped then ped = cache.ped end
+    local tempTable = {}
+    for k,v in pairs(constants.pedProps) do
+        table.insert(tempTable,k,{
+            component = v,
+            collection = GetPedPropCollectionName(ped,v),
+            prop = GetPedPropCollectionLocalIndex(ped,v),
+            texture = GetPedPropTextureIndex(ped,v)
+        })
+    end
+end
+Trainer.Functions.ped.generatePedPropTable = generatePedPropTable
+
+
 --Decoration native https://docs.fivem.net/natives/?_0xFF56381874F82086
 local function TattooBlobToTable(blob)
     local LockHash = string.unpack('<i4', blob, 1) & 0xFFFFFFFF -- uint (hash)
