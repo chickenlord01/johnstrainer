@@ -198,8 +198,18 @@ Trainer.Functions.generateValuesTable = function(values)
     for k,v in pairs(values) do
         table.insert(tempData,k,{
             label = v.globalIndex,
-            description = v.textures
+            description = v.textures,
+            globalIndex = v.globalIndex
         })
     end
     return tempData
+end
+
+Trainer.Functions.generateDefaultValuesIndex = function(values,currentData)
+    for k,value in pairs(values) do
+        if value.globalIndex == currentData.globalIndex then
+            return k
+        end
+    end
+    return 1
 end
