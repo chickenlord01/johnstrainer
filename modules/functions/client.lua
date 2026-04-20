@@ -85,10 +85,13 @@ local function generatePedDrawableTable(ped)
     if not ped then ped = cache.ped end
     local tempTable = {}
     for k,v in pairs(constants.pedComponents) do
+        local collection = GetPedDrawableVariationCollectionName(ped,v)
+        local localIndex = GetPedDrawableVariationCollectionLocalIndex(ped,v)
         table.insert(tempTable,k,{
             component = v,
-            collection = GetPedDrawableVariationCollectionName(ped,v),
-            drawable = GetPedDrawableVariationCollectionLocalIndex(ped,v),
+            globalIndex = GetPedDrawableGlobalIndexFromCollection(ped,v,collection,localIndex),
+            collection = collection,
+            index = localIndex,
             texture = GetPedTextureVariation(ped,v)
         })
     end
@@ -99,10 +102,13 @@ local function generatePedPropTable(ped)
     if not ped then ped = cache.ped end
     local tempTable = {}
     for k,v in pairs(constants.pedProps) do
+        local collection = GetPedPropCollectionName(ped,v)
+        local localIndex = GetPedPropCollectionLocalIndex(ped,v)
         table.insert(tempTable,k,{
             component = v,
-            collection = GetPedPropCollectionName(ped,v),
-            prop = GetPedPropCollectionLocalIndex(ped,v),
+            globalIndex = GetPedPropGlobalIndexFromCollection(ped,v,collection,localIndex),
+            collection = collection,
+            index = localIndex,
             texture = GetPedPropTextureIndex(ped,v)
         })
     end
