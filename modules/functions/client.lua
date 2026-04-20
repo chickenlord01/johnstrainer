@@ -1,5 +1,5 @@
 Trainer.Functions = {}
-
+while not Trainer.Ped do Wait(0) end
 
 Trainer.Functions.ped = {}
 
@@ -53,18 +53,24 @@ local function generateDrawableTables(ped)
     local collectionTable = generateCollectionsTable(ped)
     local componentTable = {}
     local propTable = {}
+    for index,_ in pairs(constants.pedComponents) do
+        componentTable[index] = {}
+    end
+    for index,_ in pairs(constants.pedProps) do
+        propTable[index] = {}
+    end
     if not loadOrder then
         for _,collectionData in pairs(collectionTable) do
             --component drawables
             for index,_ in pairs(constants.pedComponents) do
                 for _,v in pairs(collectionData.components[index]) do
-                    table.insert(componentTable,index,v)
+                    table.insert(componentTable[index],v)
                 end
             end
             --prop drawables
             for index,_ in pairs(constants.pedProps) do
                 for _,v in pairs(collectionData.props[index]) do
-                    table.insert(propTable,index,v)
+                    table.insert(propTable[index],v)
                 end
             end
         end
@@ -142,9 +148,21 @@ Trainer.Ped.tattoos = generateDecorationsTable()
 --Checks if ped is a freemode model, generally used for further customization options
 local function isPedFreemode(ped)
     local modelHash = GetEntityModel(ped)
-    if modelHash == `mp_freemode_m` or `mp_freemode_f` then
+    if modelHash == `mp_m_freemode_01` or modelHash == `mp_f_freemode_01` then
         return true
     end
     return false
 end
 Trainer.Functions.ped.isPedFreemode = isPedFreemode
+
+--Generates table used in ox_lib menu scroll index
+Trainer.Functions.generateValuesTable = function(values)
+    local tempData = {}
+    for k,v in pairs(values) do
+        table.insert(tempData,k,{
+            label = v.globalIndex,
+            description = v.textures
+        })
+    end
+    return tempData
+end
