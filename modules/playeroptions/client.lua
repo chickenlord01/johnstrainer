@@ -49,8 +49,9 @@ Trainer.Menu.GeneratePlayerRelatedOptions = function()
             }
         }, function(selected, scrollIndex, args)
             if args[1] ~= "whatareyoudoing" then
-                Trainer.Menu.previousMenu = v.args[1]
-                Trainer.Menu.openMenu(args[1])
+                Trainer.Menu.menuFunc[args[1]]()
+                --Trainer.Menu.previousMenu = v.args[1]
+                --Trainer.Menu.openMenu(args[1])
             end
         end)
     end
@@ -65,3 +66,14 @@ Trainer.Menu.GeneratePlayerOptions = function()
     lib.setMenuOptions('johnstrainer_player_options', options)
 end
 Trainer.Menu.menuFunc["johnstrainer_player_options"] = Trainer.Menu.GeneratePlayerOptions
+
+Trainer.Menu.menuFunc["johnstrainer_player_appearance"] = function()
+    local options = lib.callback.await("johnstrainer:permissions:getMenuOptionPermissions",false,"player_appearance")
+    if #options == 0 then return end
+
+    lib.setMenuOptions('johnstrainer_player_appearance', options)
+end
+
+Trainer.Menu.menuFunc["johnstrainer_customize_ped"] = function()
+    Trainer.Ped.customize(nil,nil,nil,"johnstrainer_player_appearance")
+end
