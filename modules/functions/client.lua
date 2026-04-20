@@ -87,13 +87,19 @@ local function generatePedDrawableTable(ped)
     for k,v in pairs(constants.pedComponents) do
         local collection = GetPedDrawableVariationCollectionName(ped,v)
         local localIndex = GetPedDrawableVariationCollectionLocalIndex(ped,v)
-        table.insert(tempTable,k,{
-            component = v,
-            globalIndex = GetPedDrawableGlobalIndexFromCollection(ped,v,collection,localIndex),
-            collection = collection,
-            index = localIndex,
-            texture = GetPedTextureVariation(ped,v)
-        })
+        if collection then
+            table.insert(tempTable,k,{
+                component = v,
+                globalIndex = GetPedDrawableGlobalIndexFromCollection(ped,v,collection,localIndex),
+                collection = collection,
+                index = localIndex,
+                texture = GetPedTextureVariation(ped,v)
+            })
+        else
+            table.insert(tempTable,k,{
+                component = v
+            })
+        end
     end
 end
 Trainer.Functions.ped.generatePedDrawableTable = generatePedDrawableTable
@@ -104,13 +110,19 @@ local function generatePedPropTable(ped)
     for k,v in pairs(constants.pedProps) do
         local collection = GetPedPropCollectionName(ped,v)
         local localIndex = GetPedPropCollectionLocalIndex(ped,v)
-        table.insert(tempTable,k,{
-            component = v,
-            globalIndex = GetPedPropGlobalIndexFromCollection(ped,v,collection,localIndex),
-            collection = collection,
-            index = localIndex,
-            texture = GetPedPropTextureIndex(ped,v)
-        })
+        if collection then
+            table.insert(tempTable,k,{
+                component = v,
+                globalIndex = GetPedPropGlobalIndexFromCollection(ped,v,collection,localIndex),
+                collection = collection,
+                index = localIndex,
+                texture = GetPedPropTextureIndex(ped,v)
+            })
+        else
+            table.insert(tempTable,k,{
+                component = v
+            })
+        end
     end
 end
 Trainer.Functions.ped.generatePedPropTable = generatePedPropTable
