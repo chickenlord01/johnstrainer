@@ -297,18 +297,18 @@ lib.callback.register('johnstrainer:permissions:getMenuOptionPermissions', funct
         if IsPlayerAceAllowed(source,"johnstrainer.PlayerAppearance.Customize") then
             table.insert(tempTable,{
                 label = "Customize ped",
-                args = {}
+                args = {"johnstrainer_customize_ped"}
             })
         end
         if IsPlayerAceAllowed(source,"johnstrainer.PlayerAppearance.SpawnPed") then
             table.insert(tempTable,{
-                label = "Customize ped",
+                label = "Spawn ped",
                 args = {"johnstrainer_spawn_ped"}
             })
         end
         if IsPlayerAceAllowed(source,"johnstrainer.PlayerAppearance.Saved") then
             table.insert(tempTable,{
-                label = "Customize ped",
+                label = "Saved peds",
                 args = {"johnstrainer_saved_ped"}
             })
         end
