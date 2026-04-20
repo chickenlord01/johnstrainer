@@ -3,6 +3,7 @@ while not Trainer.Ped do Wait(0) end
 
 Trainer.Functions.ped = {}
 
+-- Generate full list of collection data
 local function generateCollectionsTable(ped)
     if not ped then ped = cache.ped end
     local tempData = {}
@@ -79,6 +80,7 @@ local function generateDrawableTables(ped)
 end
 Trainer.Functions.ped.generateDrawableTables = generateDrawableTables
 
+-- Generate current ped appearance data
 local function generatePedDrawableTable(ped)
     if not ped then ped = cache.ped end
     local tempTable = {}
