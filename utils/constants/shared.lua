@@ -24,6 +24,13 @@ constants.pedComponentNames = {
     "Shirt overlay & Jackets"
 }
 constants.pedProps = {0, 1, 2, 6, 7}
+constants.pedPropNames = {
+    "Headwear",
+    "Eyewear",
+    "Ears",
+    "Left wrist",
+    "Right wrist"
+}
 constants.pedTattooZones = {
     ZONE_TORSO = 0,
 	ZONE_HEAD = 1,
