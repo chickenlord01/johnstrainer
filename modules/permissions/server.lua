@@ -53,37 +53,37 @@ lib.callback.register('johnstrainer:permissions:getMenuOptionPermissions', funct
         if IsPlayerAceAllowed(source,"johnstrainer.Menu.OnlinePlayers") then
             table.insert(tempTable,{
                 label = "Online players",
-                args = {"johnstrainer_online_players"}
+                args = {"johnstrainer:onlineplayers"}
             })
         end
         if IsPlayerAceAllowed(source,"johnstrainer.Menu.PlayerRelated") then
             table.insert(tempTable,{
                 label = "Player related options",
-                args = {"johnstrainer_player_related"}
+                args = {"johnstrainer:playerrelated"}
             })
         end
         if IsPlayerAceAllowed(source,"johnstrainer.Menu.VehicleRelated") then
             table.insert(tempTable,{
                 label = "Vehicle related options",
-                args = {"johnstrainer_vehicle_options"}
+                args = {"johnstrainer:vehicleoptions"}
             })
         end
         if IsPlayerAceAllowed(source,"johnstrainer.Menu.WorldRelated") then
             table.insert(tempTable,{
                 label = "World related options",
-                args = {"johnstrainer_world_options"}
+                args = {"johnstrainer:worldoptions"}
             })
         end
         if IsPlayerAceAllowed(source,"johnstrainer.Menu.Recording") then
             table.insert(tempTable,{
                 label = "Recording options",
-                args = {"johnstrainer_recording_options"}
+                args = {"johnstrainer:recordingoptions"}
             })
         end
         if IsPlayerAceAllowed(source,"johnstrainer.Menu.Misc") then
             table.insert(tempTable,{
                 label = "Misc options",
-                args = {"johnstrainer_misc_options"}
+                args = {"johnstrainer:miscoptions"}
             })
         end
     elseif menu == "online_player" then
@@ -151,19 +151,19 @@ lib.callback.register('johnstrainer:permissions:getMenuOptionPermissions', funct
         if IsPlayerAceAllowed(source,"johnstrainer.PlayerRelated.PlayerOptions") then
             table.insert(tempTable,{
                 label = "Player Options",
-                args = {"johnstrainer_player_options"}
+                args = {"johnstrainer:playeroptions"}
             })
         end
         if IsPlayerAceAllowed(source,"johnstrainer.PlayerRelated.PlayerAppearance") then
             table.insert(tempTable,{
                 label = "Player Appearance",
-                args = {"johnstrainer_player_appearance"}
+                args = {"johnstrainer:playerappearance"}
             })
         end
         if IsPlayerAceAllowed(source,"johnstrainer.PlayerRelated.PlayerCharacters") then
             table.insert(tempTable,{
                 label = "Player Characters",
-                args = {"johnstrainer_player_characters"}
+                args = {"johnstrainer:playercharacters"}
             })
         end
     elseif menu == "player_options" then
@@ -297,19 +297,19 @@ lib.callback.register('johnstrainer:permissions:getMenuOptionPermissions', funct
         if IsPlayerAceAllowed(source,"johnstrainer.PlayerAppearance.Customize") then
             table.insert(tempTable,{
                 label = "Customize ped",
-                args = {"johnstrainer_customize_ped"}
+                args = {"johnstrainer:customizeped"}
             })
         end
         if IsPlayerAceAllowed(source,"johnstrainer.PlayerAppearance.SpawnPed") then
             table.insert(tempTable,{
                 label = "Spawn ped",
-                args = {"johnstrainer_spawn_ped"}
+                args = {"johnstrainer:spawnped"}
             })
         end
         if IsPlayerAceAllowed(source,"johnstrainer.PlayerAppearance.Saved") then
             table.insert(tempTable,{
                 label = "Saved peds",
-                args = {"johnstrainer_saved_ped"}
+                args = {"johnstrainer:savedpeds"}
             })
         end
     end
