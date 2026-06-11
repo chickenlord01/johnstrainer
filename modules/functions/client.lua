@@ -218,6 +218,7 @@ Trainer.Functions.generateValuesTable = function(values)
 end
 
 Trainer.Functions.generateDefaultValuesIndex = function(values,currentData)
+    if not currentData then return 1 end
     for k,value in pairs(values) do
         if value.globalIndex == currentData.globalIndex then
             return k
