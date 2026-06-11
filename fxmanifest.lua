@@ -30,5 +30,10 @@ server_scripts {
 }
 
 files {
+    'modules/menu/menuObject.lua',
+    'modules/menu/*Menu.lua',
+    --[['modules/menu/menuObject.lua',
+    'modules/menu/onlinePlayersMenu.lua',
+    'modules/menu/mainMenu.lua',]]
     'locales/*.json'
 }
