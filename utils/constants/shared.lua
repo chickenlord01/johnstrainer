@@ -41,3 +41,34 @@ constants.pedTattooZones = {
 	ZONE_UNKNOWN = 6,
 	ZONE_NONE = 7
 }
+
+constants.headBlends = {
+    [0] = "Male_",
+    [1] = "Female_",
+    [2] = "Special_Male_",
+    [3] = "Special_Female_"
+}
+
+constants.blendValues = {
+    -1.0,
+    -0.9,
+    -0.8,
+    -0.7,
+    -0.6,
+    -0.5,
+    -0.4,
+    -0.3,
+    -0.2,
+    -0.1,
+     0.0,
+     0.1,
+     0.2,
+     0.3,
+     0.4,
+     0.5,
+     0.6,
+     0.7,
+     0.8,
+     0.9,
+     1.0
+}
