@@ -51,14 +51,27 @@ function Menu:setup()
     return true
 end
 function Menu:onSideScroll(selected, scrollIndex, args)
-    self.index = selected
-    self.indexOptions = {
-        selected = selected,
-        scrollIndex = scrollIndex,
-        args = args
-    }
+    if self.onScroll then
+        self.onScroll(selected, scrollIndex, args)
+        --self.index = selected
+        self.indexOptions = {
+            selected = selected,
+            scrollIndex = scrollIndex,
+            args = args
+        }
+    end
 end
-function Menu:onCheck(selected, checked, args)end
+function Menu:onChecked(selected, checked, args)
+    if self.onCheck then
+        self.onCheck(selected, checked, args)
+        --self.index = selected
+        self.indexOptions = {
+            selected = selected,
+            checked = checked,
+            args = args
+        }
+    end
+end
 function Menu:optionPressed(selected, scrollIndex, args)
     if self.onPressed then self.onPressed(selected, scrollIndex, args) end
     return true
@@ -69,6 +82,9 @@ function Menu:onClose(keyPressed)
     end
 end
 function Menu:onSelected(selected, secondary, args)
+    if self.onSelect then
+        self.onSelect(selected, secondary, args)
+    end
     self.index = selected
     self.indexOptions = {
         selected = selected,
