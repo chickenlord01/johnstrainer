@@ -22,7 +22,7 @@ local function generateCollectionsTable(ped)
                     localIndex = drawable,
                     globalIndex = GetPedDrawableGlobalIndexFromCollection(ped,v,collection,drawable),
                     collection = collection,
-                    textures = GetNumberOfPedCollectionTextureVariations(ped,v,collection,drawable),
+                    textures = GetNumberOfPedCollectionTextureVariations(ped,v,collection,drawable) -1,
                     component = v
                 })
             end
@@ -36,21 +36,21 @@ local function generateCollectionsTable(ped)
                     localIndex = prop,
                     globalIndex = GetPedPropGlobalIndexFromCollection(ped,v,collection,prop),
                     collection = collection,
-                    textures = GetNumberOfPedCollectionPropTextureVariations(ped,v,collection,prop),
+                    textures = GetNumberOfPedCollectionPropTextureVariations(ped,v,collection,prop) -1,
                     anchor = v
                 })
             end
             table.insert(tempData[collection].props,k,propData)
         end
     end
-    --print(json.encode(tempData,{indent=true}))
+    --print(json.encode(tempData[""].props,{indent=true}))
     return tempData
 end
 Trainer.Functions.ped.generateCollectionsTable = generateCollectionsTable
 
 local function generateDrawableTables(ped)
     if not ped then ped = cache.ped end
-    local loadOrder = Trainer.Ped.loadOrder[GetEntityModel(ped)]
+    --local loadOrder = Trainer.Ped.loadOrder[GetEntityModel(ped)]
     local collectionTable = generateCollectionsTable(ped)
     local componentTable = {}
     local propTable = {}
@@ -101,6 +101,7 @@ local function generatePedDrawableTable(ped)
             })
         end
     end
+    return tempTable
 end
 Trainer.Functions.ped.generatePedDrawableTable = generatePedDrawableTable
 
@@ -109,6 +110,7 @@ local function generatePedPropTable(ped)
     local tempTable = {}
     for k,v in pairs(constants.pedProps) do
         local collection = GetPedPropCollectionName(ped,v)
+        print(json.encode(collection))
         local localIndex = GetPedPropCollectionLocalIndex(ped,v)
         if collection then
             table.insert(tempTable,k,{
@@ -124,6 +126,7 @@ local function generatePedPropTable(ped)
             })
         end
     end
+    return tempTable
 end
 Trainer.Functions.ped.generatePedPropTable = generatePedPropTable
 
@@ -205,22 +208,22 @@ end
 Trainer.Functions.ped.isPedFreemode = isPedFreemode
 
 --Generates table used in ox_lib menu scroll index
-Trainer.Functions.generateValuesTable = function(values)
+--[[Trainer.Functions.generateDrawableValuesTable = function(values)
     local tempData = {}
     for k,v in pairs(values) do
         table.insert(tempData,k,{
             label = v.globalIndex,
-            description = v.textures,
+            description = "Textures: /"..v.textures,
             globalIndex = v.globalIndex
         })
     end
     return tempData
-end
+end]]
 
 Trainer.Functions.generateDefaultValuesIndex = function(values,currentData)
     if not currentData then return 1 end
     for k,value in pairs(values) do
-        if value.globalIndex == currentData.globalIndex then
+        if value.globalIndex == currentData[value.globalIndex]?.globalIndex then
             return k
         end
     end
