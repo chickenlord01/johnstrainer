@@ -53,23 +53,11 @@ end
 function Menu:onSideScroll(selected, scrollIndex, args)
     if self.onScroll then
         self.onScroll(selected, scrollIndex, args)
-        --self.index = selected
-        self.indexOptions = {
-            selected = selected,
-            scrollIndex = scrollIndex,
-            args = args
-        }
     end
 end
 function Menu:onChecked(selected, checked, args)
     if self.onCheck then
         self.onCheck(selected, checked, args)
-        --self.index = selected
-        self.indexOptions = {
-            selected = selected,
-            checked = checked,
-            args = args
-        }
     end
 end
 function Menu:optionPressed(selected, scrollIndex, args)
@@ -94,7 +82,7 @@ function Menu:onSelected(selected, secondary, args)
 end
 function Menu:setOptions(options,index)
     --if current menu index is greater than new options it will reset the index to 1
-    if self.index then
+    if self.index and not index then
         if self.index > #options then
             self.index = 1
         end
@@ -102,8 +90,13 @@ function Menu:setOptions(options,index)
 
     --if index exists then set self.options[index] to options, otherwise just store the table
     if not index then self.options = options else self.options[index] = options end
-
-    return lib.setMenuOptions(self.id, options, index)
+    lib.setMenuOptions(self.id, options, index)
+    if index then
+        if lib.getOpenMenu() == self.id then
+            self:showMenu()
+        end
+    end
+    return true
 end
 function Menu:update(data,key)
     local runSetup = false
@@ -122,6 +115,9 @@ function Menu:update(data,key)
     return true
 end
 function Menu:showMenu(args)
+    if lib.getOpenMenu() == self.id then
+        lib.hideMenu()
+    end
     if lib.onShow then self.onShow(args) end
     lib.showMenu(self.id,self.index)
     --[[if not lib.getOpenMenu() then lib.showMenu(self.id,self.index) return true end
