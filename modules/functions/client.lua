@@ -3,6 +3,50 @@ while not Trainer.Ped do Wait(0) end
 
 Trainer.Functions.ped = {}
 
+local function generatePedCurrentPropTable(ped)
+    if not ped then ped = cache.ped end
+    local tempData = {}
+    for index,anchor in pairs(constants.pedProps) do
+        tempData[index] = {
+            globalIndex = GetPedPropIndex(ped,anchor),
+            menuIndex = GetPedPropIndex(ped,anchor)+2,
+            collection = GetPedPropCollectionName(ped,anchor),
+            localIndex = GetPedPropCollectionLocalIndex(ped,anchor),
+            texture = GetPedPropTextureIndex(ped,anchor),
+            anchor = anchor
+        }
+    end
+    return tempData
+end
+Trainer.Functions.ped.generatePedCurrentPropTable = generatePedCurrentPropTable
+
+local function generatePedPropTable(ped)
+    if not ped then ped = cache.ped end
+    local tempData = {}
+    for index,anchor in pairs(constants.pedProps) do
+        local drawables = {}
+        for drawable = 0, GetNumberOfPedPropDrawableVariations(ped,anchor) do
+            table.insert(drawables,drawable+1,{
+                globalIndex = drawable-1,
+                menuIndex = drawable,
+                localIndex = GetPedCollectionLocalIndexFromProp(ped,anchor,drawable-1),
+                collection = GetPedCollectionNameFromProp(ped,anchor,drawable-1),
+                textures = GetNumberOfPedPropTextureVariations(ped,anchor,drawable-1)-1,
+                anchor = anchor
+            })
+        end
+        table.insert(tempData,index,drawables)
+    end
+    return tempData
+end
+Trainer.Functions.ped.generatePedPropTable = generatePedPropTable
+
+
+
+
+
+
+
 -- Generate full list of collection data
 local function generateCollectionsTable(ped)
     if not ped then ped = cache.ped end
@@ -104,32 +148,6 @@ local function generatePedDrawableTable(ped)
     return tempTable
 end
 Trainer.Functions.ped.generatePedDrawableTable = generatePedDrawableTable
-
-local function generatePedPropTable(ped)
-    if not ped then ped = cache.ped end
-    local tempTable = {}
-    for k,v in pairs(constants.pedProps) do
-        local collection = GetPedPropCollectionName(ped,v)
-        print(json.encode(collection))
-        local localIndex = GetPedPropCollectionLocalIndex(ped,v)
-        if collection then
-            table.insert(tempTable,k,{
-                component = v,
-                globalIndex = GetPedPropGlobalIndexFromCollection(ped,v,collection,localIndex),
-                collection = collection,
-                index = localIndex,
-                texture = GetPedPropTextureIndex(ped,v)
-            })
-        else
-            table.insert(tempTable,k,{
-                component = v
-            })
-        end
-    end
-    return tempTable
-end
-Trainer.Functions.ped.generatePedPropTable = generatePedPropTable
-
 
 --Decoration native https://docs.fivem.net/natives/?_0xFF56381874F82086
 local function TattooBlobToTable(blob)
