@@ -23,17 +23,22 @@ local PedPropMenu = Menu:new("johnstrainer:customizeped:prop","Props",{
 
 HandlePedPropUpdate = function(ped,data)
     local drawable = {}
+    if #data.args.drawables <= 1 or data.scrollIndex == 1 or data.args.scrollIndex == 1 then return end
     if data.scrollIndex then
         drawable = data.args.drawables[data.scrollIndex]
-        SetPedCollectionPropIndex(cache.ped,drawable.anchor,drawable.collection,drawable.localIndex,drawable.texture or 0,true)
+        if not drawable.collection then
+            ClearPedProp(ped,drawable.anchor)
+        else
+            SetPedCollectionPropIndex(cache.ped,drawable.anchor,drawable.collection,drawable.localIndex,drawable.texture or 0,true)
+        end
     else
         if not data.args.values then return end
 
         drawable = data.args.drawables[data.args.scrollIndex]
-        local texture = GetPedPropTextureIndex(ped,drawable.component)
+        local texture = GetPedPropTextureIndex(ped,drawable.anchor)
         if texture < drawable.textures then
-            texture = texture + 1
-        elseif texture == drawable.textures then
+            texture += 1
+        else
             texture = 0
         end
         SetPedCollectionPropIndex(cache.ped,drawable.anchor,drawable.collection,drawable.localIndex,texture,true)
@@ -47,44 +52,42 @@ GeneratePedPropOptions = function(ped,isFreemode,propData,currentProp)
     if isFreemode == nil then isFreemode = Trainer.Functions.ped.isPedFreemode(ped) end
     
     if not propData then
-        _,propData = Trainer.Functions.ped.generateDrawableTables(ped)
-        --print(json.encode(propData))
+        propData = Trainer.Functions.ped.generatePedPropTable(ped)
     end
     if not currentProp then
-        currentProp = Trainer.Functions.ped.generatePedPropTable(ped)
+        currentProp = Trainer.Functions.ped.generatePedCurrentPropTable(ped)
     end
 
     local propOptions = {}
     for index,drawables in pairs(propData) do
-        --if not isFreemode then
-            if #drawables >= 1 then
-                local values = {}
-                for k,v in pairs(drawables) do
-                    table.insert(values,k,{
-                        label = "Textures: "..(currentProp[index].texture or 0).."/"..v.textures,
-                        globalIndex = v.globalIndex
-                    })
+        if #drawables >= 1 then
+            local values = {}
+            for menuIndex,drawable in pairs(drawables) do
+                local label = "Textures: "..(currentProp[index].texture or 0).."/"..drawable.textures
+                if not drawable.collection then
+                    label = "No "..constants.pedPropNames[index]
                 end
-                --print(json.encode(index))
-                --print(json.encode(drawables))
-                --print(json.encode(values))
-                --print(json.encode(currentProp))
-                table.insert(propOptions,{
-                    label = constants.pedPropNames[index],
-                    values = values,
-                    args = {values = values, drawables = drawables},
-                    defaultIndex = currentProp,
-                    close = false
-                })
-            else
-                table.insert(propOptions,{
-                    label = constants.pedPropNames[index],
-                    args = {drawables = drawables},
-                    description = "No props",
-                    close = false
+                table.insert(values,menuIndex,{
+                    label = label,
+                    globalIndex = drawable.globalIndex
                 })
             end
-        --end
+            
+            table.insert(propOptions,{
+                label = constants.pedPropNames[index],
+                values = values,
+                args = {values = values, drawables = drawables},
+                defaultIndex = currentProp[index].menuIndex,
+                close = false
+            })
+        else
+            table.insert(propOptions,{
+                label = constants.pedPropNames[index],
+                args = {drawables = drawables},
+                description = "No props",
+                close = false
+            })
+        end
     end
     PedPropMenu:setOptions(propOptions)
     return propOptions
