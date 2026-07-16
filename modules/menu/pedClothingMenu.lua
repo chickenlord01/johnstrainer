@@ -32,7 +32,7 @@ HandlePedClothingUpdate = function(ped,data)
         drawable = data.args.drawables[data.args.scrollIndex]
         local texture = GetPedTextureVariation(ped,drawable.component)
         if texture < drawable.textures then
-            texture = texture + 1
+            texture += 1
         elseif texture == drawable.textures then
             texture = 0
         end
@@ -61,7 +61,6 @@ GeneratePedClothingOptions = function(ped,isFreemode,componentData,currentCompon
                 for k,v in pairs(drawables) do
                     table.insert(values,k,{
                         label = "Textures: "..(currentComponent[index].texture or 0).."/"..v.textures,
-                        --description = "Textures: "..(currentComponent[index].texture or 0).."/"..v.textures,
                         globalIndex = v.globalIndex
                     })
                 end
