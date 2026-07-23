@@ -312,6 +312,127 @@ lib.callback.register('johnstrainer:permissions:getMenuOptionPermissions', funct
                 args = {"johnstrainer:savedpeds"}
             })
         end
+    elseif menu == "Misc" then
+        if IsPlayerAceAllowed(source,"johnstrainer.Misc.ClearArea") then
+            table.insert(tempTable,{
+                label = "Clear Area",
+                args = {}
+            })
+        end
+        if IsPlayerAceAllowed(source,"johnstrainer.Misc.TeleportToWp") then
+            table.insert(tempTable,{
+                label = "Telepot to way point",
+                args = {}
+            })
+        end
+         if IsPlayerAceAllowed(source,"johnstrainer.Misc.TeleportToCoord") then
+            table.insert(tempTable,{
+                label = "Telepot to coords",
+                args = {}
+            })
+        end
+          if IsPlayerAceAllowed(source,"johnstrainer.Misc.ShowCoordinates") then
+            table.insert(tempTable,{
+                label = "Show Coordinates",
+                args = {}
+            })
+        end
+         if IsPlayerAceAllowed(source,"johnstrainer.Misc.ShowLocation") then
+            table.insert(tempTable,{
+                label = "Show Location",
+                args = {}
+            })
+        end
+         if IsPlayerAceAllowed(source,"johnstrainer.Misc.JoinQuitNotif") then
+            table.insert(tempTable,{
+                label = "Join, Quit Notification",
+                args = {}
+            })
+        end
+           if IsPlayerAceAllowed(source,"johnstrainer.Misc.DeathNotifs") then
+            table.insert(tempTable,{
+                label = "Death Notification",
+                args = {}
+            })
+        end
+        if IsPlayerAceAllowed(source,"johnstrainer.Misc.NightVision") then
+            table.insert(tempTable,{
+                label = "Toggel NightVision",
+                args = {}
+            })
+        end
+        if IsPlayerAceAllowed(source,"johnstrainer.Misc.ThermalVision") then
+            table.insert(tempTable,{
+                label = "Toggel ThermalVision",
+                args = {}
+            })
+        end
+        if IsPlayerAceAllowed(source,"johnstrainer.Misc.LocationBlips") then
+            table.insert(tempTable,{
+                label = "Show Location Blips",
+                args = {}
+            })
+        end
+        if IsPlayerAceAllowed(source,"johnstrainer.Misc.OverheadNames") then
+            table.insert(tempTable,{
+                label = "Toggle Player names",
+                args = {}
+            })
+        end
+        if IsPlayerAceAllowed(source,"johnstrainer.Misc.PlayerBlips") then
+            table.insert(tempTable,{
+                label = "Show PlayerBlips",
+                args = {}
+            })
+        end
+        if IsPlayerAceAllowed(source,"johnstrainer.Misc.TeleportLocations") then
+            table.insert(tempTable,{
+                label = "Teleport to Locations",
+                args = {}
+            })
+        end
+        if IsPlayerAceAllowed(source,"johnstrainer.Misc.TeleportSaveLocation") then
+            table.insert(tempTable,{
+                label = "Teleport to Saved Location",
+                args = {}
+            })
+        end
+        if IsPlayerAceAllowed(source,"johnstrainer.Misc.ConnectionMenu") then
+            table.insert(tempTable,{
+                label = "IDFK",
+                args = {}
+            })
+        end
+        if IsPlayerAceAllowed(source,"johnstrainer.Misc.RestoreAppearance") then
+            table.insert(tempTable,{
+                label = "Restore Appearance",
+                args = {}
+            })
+        end
+        if IsPlayerAceAllowed(source,"johnstrainer.Misc.RestoreWeapons") then
+            table.insert(tempTable,{
+                label = "Restores Weapons",
+                args = {}
+            })
+        end
+        if IsPlayerAceAllowed(source,"johnstrainer.Misc.DriftMode") then
+            table.insert(tempTable,{
+                label = "Drift Mode",
+                args = {}
+            })
+        end
+        if IsPlayerAceAllowed(source,"johnstrainer.Misc.EntitySpawner") then
+            table.insert(tempTable,{
+                label = "Entity Spawner",
+                args = {}
+            })
+        end
+        if IsPlayerAceAllowed(source,"johnstrainer.Misc.DevTools") then
+            table.insert(tempTable,{
+                label = "Dev Tools",
+                args = {}
+            })
+        end
     end
     return tempTable
 end)
