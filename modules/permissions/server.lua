@@ -433,6 +433,70 @@ lib.callback.register('johnstrainer:permissions:getMenuOptionPermissions', funct
                 args = {}
             })
         end
+    elseif menu=="World" then
+        if IsPlayerAceAllowed(source,"johnstrainer.World.TimeOptions.Menu") then
+            table.insert(tempTable,{
+                label = "Time Options",
+                args = {"johnstrainer:TimeOptions"}
+            })
+        end
+        if IsPlayerAceAllowed(source,"johnstrainer.World.WeatherOptions.Menu") then
+            table.insert(tempTable,{
+                label = "Weather Options",
+                args = {"johnstrainer:WeatherOptions"}
+            })
+        end
+    
+    elseif menu=="Time Options" then
+        if IsPlayerAceAllowed(source, "johnstrainer.Time.FreezeTime") then
+            table.insert(tempTable,{
+                label = "Freeze Time",
+                args = {}
+            })
+        end
+         if IsPlayerAceAllowed(source, "johnstrainer.Time.SetTime") then
+            table.insert(tempTable,{
+                label = "Set Time",
+                args = {}
+            })
+        end
+    elseif menu=="Weather Options" then
+        if IsPlayerAceAllowed(source, "johnstrainer.Weather.SetWeather") then
+            table.insert(tempTable,{
+                label = "Set Weather",
+                args = {}
+            })
+        end
+        if IsPlayerAceAllowed(source, "johnstrainer.Weather.Blackout") then
+            table.insert(tempTable,{
+                label = "Blackout",
+                args = {}
+            })
+        end
+        if IsPlayerAceAllowed(source, "johnstrainer.Weather.VehicleBlackout") then
+            table.insert(tempTable,{
+                label = "Vehicle Blackout",
+                args = {}
+            })
+        end
+         if IsPlayerAceAllowed(source, "johnstrainer.Weather.RemoveClouds") then
+            table.insert(tempTable,{
+                label = "Remove Clouds",
+                args = {}
+            })
+        end
+          if IsPlayerAceAllowed(source, "johnstrainer.Weather.RandomizeClouds") then
+            table.insert(tempTable,{
+                label = "Randomize Clouds",
+                args = {}
+            })
+        end
+         if IsPlayerAceAllowed(source, "johnstrainer.Weather.Dynamic") then
+            table.insert(tempTable,{
+                label = "Dynamic",
+                args = {}
+            })
+        end
     end
     return tempTable
 end)

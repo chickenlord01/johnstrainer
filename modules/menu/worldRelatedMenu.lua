@@ -8,3 +8,8 @@ local WorldMenu = Menu:new("johnstrainer:world","World",{
         
     end
 })
+GenerateWorldMenuOptions = function()
+    local options = lib.callback.await("johnstrainer:permissions:getMenuOptionPermissions",false,"World")
+    if #options == 0 then return end
+    MiscMenu:setOptions(options)
+end
