@@ -3,6 +3,7 @@ local PlayerRelatedMenu,PlayerOptionsMenu,PlayerAppearanceMenu,PlayerCharactersM
 require("modules.menu.pedInheritanceMenu")
 require("modules.menu.pedClothingMenu")
 require("modules.menu.pedPropMenu")
+require("modules.menu.pedSpawnerMenu")
 
 local PedCustomizeMenu = Menu:new("johnstrainer:customizeped","Customize Ped",{
     parent = "johnstrainer:playerappearance",
