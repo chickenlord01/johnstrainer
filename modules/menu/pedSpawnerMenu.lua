@@ -2,6 +2,7 @@ local Menu = require("modules.menu.menuObject")
 
 constants.peds = lib.callback.await("johnstrainer:ped:getPedList",false)
 constants.pedCategories = {}
+customCategories = require("utils.configuration.shared").pedCategories
 
 for _,v in pairs(constants.peds) do
     if not lib.table.contains(constants.pedCategories,v.type) then
@@ -15,7 +16,7 @@ local SpawnPedMenu = Menu:new("johnstrainer:spawnped","Spawn Ped",{
     parent = "johnstrainer:playerappearance",
     position = 'top-right',
     onPressed = function(selected, scrollIndex, args)
-        
+        subMenus[args.category]:showMenu(args)
     end,
     onShow = function(args)
         generatePedSpawnOptions()
@@ -40,6 +41,15 @@ function generatePedSpawnOptions()
         table.insert(options,{
             label = category,
             args = {category = category,peds = pedData}
+        })
+    end
+    table.sort(options,function(a,b)
+        return a.label < b.label
+    end)
+    for k,v in pairs(customCategories) do
+        table.insert(options,1,{
+            label = k,
+            args = {category = k,peds = v}
         })
     end
     SpawnPedMenu:setOptions(options)
