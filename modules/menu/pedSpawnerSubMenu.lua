@@ -6,6 +6,12 @@ local function createPedSubMenu(category)
     pedSubMenus[category] = Menu:new("johnstrainer:spawnped:"..category,category,{
         parent = "johnstrainer:spawnped",
         position = 'top-right',
+        onPressed = function(selected, scrollIndex, args)
+            lib.callback.await("johnstrainer:player:pedTransaction",false,{
+                model = args.pedData.model
+            })
+            --SetPlayerModel(cache.playerId,args.pedData.model)
+        end,
         onShow = function(args)
             if args.peds then
                 GeneratePedCategoryOptions(args)
