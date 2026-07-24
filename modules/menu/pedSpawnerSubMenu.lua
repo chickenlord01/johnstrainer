@@ -2,7 +2,7 @@ local Menu = require("modules.menu.menuObject")
 
 local pedSubMenus = {}
 
-for _,category in pairs(constants.pedCategories) do
+local function createPedSubMenu(category)
     pedSubMenus[category] = Menu:new("johnstrainer:spawnped:"..category,category,{
         parent = "johnstrainer:spawnped",
         position = 'top-right',
@@ -13,16 +13,12 @@ for _,category in pairs(constants.pedCategories) do
         end
     })
 end
+
+for _,category in pairs(constants.pedCategories) do
+    createPedSubMenu(category)
+end
 for category,v in pairs(customCategories) do
-    pedSubMenus[category] = Menu:new("johnstrainer:spawnped:"..category,category,{
-        parent = "johnstrainer:spawnped",
-        position = 'top-right',
-        onShow = function(args)
-            if args.peds then
-                GeneratePedCategoryOptions(args)
-            end
-        end
-    })
+    createPedSubMenu(category)
 end
 
 GeneratePedCategoryOptions = function(args)
