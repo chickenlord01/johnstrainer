@@ -1,7 +1,8 @@
 --Start of connection
 local PlayerClass = lib.class("PlayerClass")
 Trainer.Player = {
-    PlayersTable = {}
+    PlayersTable = {},
+    PlayerClasses = {}
 }
 
 AddEventHandler('playerConnecting', function(playerName, setKickReason, deferrals)
@@ -144,6 +145,9 @@ lib.callback.register('johnstrainer:player:connected', function(source)
         local lic = GetPlayerIdentifierByType(source, 'license')
         player = Trainer.Player.PlayersTable[string.sub(lic,9)]
     end
+
+    Trainer.Player.PlayerClasses[source] = lib.player:new(source)
+    
     return player:updateData(source,"source")
 end)
 
@@ -165,4 +169,11 @@ CreateThread(function()
             name = GetPlayerName(v)
         })
     end
+end)
+
+lib.callback.register('johnstrainer:player:pedTransaction', function(source,data)
+    if data.model then
+        Trainer.Player.PlayerClasses[source]:setModel(data.model)
+    end
+    return true
 end)
